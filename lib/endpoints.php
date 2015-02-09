@@ -13,14 +13,14 @@ class endpoint {
 			array('snapshot_id' => $snapshot_id)
 			));
 
-		return $snapshot;
+		//return $snapshot;
 
 	}
 
 
 	function get_profile($username){
 
-		$profile =($curl -> curl_terminal('/get_profile',
+		$profile =($GLOBALS['curl']  -> curl_terminal('/get_profile',
 			array('username' => $username)
 			));
 
@@ -31,7 +31,7 @@ class endpoint {
 	function public_snapshots($filteredBy,$value){
 
 		//filtered by featured title,page,perpage,sortby
-		$public_snapshots = ($curl -> curl_terminal('/list_public_snapshots',
+		$public_snapshots = ($GLOBALS['curl']  -> curl_terminal('/list_public_snapshots',
 			array($filteredBy => $value)
 			));
 
@@ -42,7 +42,7 @@ class endpoint {
 
 	function count_public_snapshots($filteredBy,$value){
 
-		$count = ($curl -> curl_terminal('/count_public_snapshots',
+		$count = ($GLOBALS['curl']  -> curl_terminal('/count_public_snapshots',
 			array($filteredBy => $value)
 			));
 		return $count;
@@ -54,9 +54,9 @@ class endpoint {
 	//get information about, create, edit, and delete your Terminal instances.
 	function list_terminal(){
 
-		$list =($curl -> curl_terminal('/list_terminals',
-			array('user_token' => $user_token,
-				'access_token'=> $access_token)
+		$list =($GLOBALS['curl'] -> curl_terminal('/list_terminals',
+			array('user_token' => $this -> user_token,
+				'access_token'=> $this -> access_token)
 			));
 		return $list;
 
@@ -65,7 +65,7 @@ class endpoint {
 	function get_terminal($container_key,$subdomain){
 
 			$terminal=($curl -> curl_terminal('/get_terminal',
-				array('user_token' => $user_token,
+				array('user_token' => $this -> user_token,
 					'access_token'=> $access_token,
 					'container_key' => $container_key,
 					'subdomain' => $subdomain
@@ -77,8 +77,8 @@ class endpoint {
 	///start_snapshot
 	//Start a Terminal instance based on a snapshot. Return is of the form:
 	function start_snapshot($snapshot_id,$cpu,$ram,$temporary,$name,$autopause,$start_script){
-		$start_snapshot=($curl -> curl_terminal('/start_snapshot',
-			array('user_token' =>$user_token,
+		$start_snapshot=($GLOBALS['curl'] -> curl_terminal('/start_snapshot',
+			array('user_token' =>$this -> user_token,
 				'access_token' =>$access_token,
 				'snapshot_id' =>$snapshot_id,
 				'cpu' =>$cpu,
@@ -96,8 +96,8 @@ class endpoint {
 	}
 
 	function delete_terminal($container_key){
-		$delete_terminal=($curl -> curl_terminal('/delete_terminal',
-			array('user_token' => $user_token,
+		$delete_terminal=($GLOBALS['curl'] -> curl_terminal('/delete_terminal',
+			array('user_token' => $this -> user_token,
 				'access_token' => $access_token,
 				'container_key'=> $container_key
 				)
@@ -108,8 +108,8 @@ class endpoint {
 	}
 	function restart_terminal($container_key){
 
-		$restart_terminal=($curl -> curl_terminal('/restart_terminal',
-			array('user_token' => $user_token,
+		$restart_terminal=($GLOBALS['curl'] -> curl_terminal('/restart_terminal',
+			array('user_token' => $this -> user_token,
 				'access_token' => $access_token,
 				'container_key' => $container_key
 				)
@@ -121,8 +121,8 @@ class endpoint {
 
 	function pause_terminal($container_key){
 
-		$pause_terminal=($curl -> curl_terminal('/pause_terminal',
-			array('user_token' => $user_token,
+		$pause_terminal=($GLOBALS['curl'] -> curl_terminal('/pause_terminal',
+			array('user_token' => $this -> user_token,
 				'access_token' => $access_token,
 				'container_key' => $container_key
 				)
@@ -133,8 +133,8 @@ class endpoint {
 	}
 	function resume_terminal($container_key){
 
-		$resume_terminal=($curl -> curl_terminal('/resume_terminal',
-			array('user_token' => $user_token,
+		$resume_terminal=($GLOBALS['curl'] -> curl_terminal('/resume_terminal',
+			array('user_token' => $this -> user_token,
 				'access_token' => $access_token,
 				'container_key' => $container_key
 				)
@@ -146,8 +146,8 @@ class endpoint {
 
 	function edit_terminal($container_key,$cpu,$ram,$diskspace,$name,$custom_data){
 
-		$edit_terminal=($curl-> curl_terminal('/edit_terminal',
-			array('user_token' => $user_token,
+		$edit_terminal=($GLOBALS['curl']-> curl_terminal('/edit_terminal',
+			array('user_token' => $this -> user_token,
 				'access_token' => $access_token,
 				'cpu' => $cpu,
 				'ram' => $ram,
@@ -164,8 +164,8 @@ class endpoint {
 		//create and manage snapshot
 	//Get information about, create, edit, and delete your snapshots.
 	function list_snapshot($username,$tag,$featured,$title,$page,$perpage,$sortby){
-		$list_snapshot=($curl -> curl_terminal('/list_snapshots',
-			array('user_token' => $user_token,
+		$list_snapshot=($GLOBALS['curl'] -> curl_terminal('/list_snapshots',
+			array('user_token' => $this -> user_token,
 				'access_token' => $access_token,
 				'username' => $username,
 				'tag' => $tag,
@@ -175,23 +175,17 @@ class endpoint {
 				'perpage' => $perpage,
 				'sortby' => $sortby
 				)
-
-
-
-
 			));
 		return $list_snapshot;
-
-
-
-
 	}
+	
 
-//FUCKING PROBLEM
+
+	//FUCKING PROBLEM
 	function count_snapshot($username,$tag,$featured,$title){
-		$count_snapshot=($curl -> curl_terminal('/count_snapshots',
-			array('user_token' => $user_token,
-				'access_token' => $access_token,
+		$count_snapshot=($GLOBALS['curl'] -> curl_terminal('/count_snapshots',
+			array('user_token' => $this -> user_token,
+				'access_token' => $this -> access_token,
 				'username' => $username,
 				'tag' => $tag,
 				'featured' => $featured,
@@ -206,8 +200,8 @@ class endpoint {
 
 
 	function delete_snapshot($snapshot_id){
-		$delete_snapshot=($curl -> curl_terminal('/delete_snapshot',
-			array('user_token' =>$user_token,
+		$delete_snapshot=($GLOBALS['curl'] -> curl_terminal('/delete_snapshot',
+			array('user_token' =>$this -> user_token,
 				'access_token' =>$username,
 				'snapshot_id'=>$snapshot_id)
 			));
@@ -217,9 +211,9 @@ class endpoint {
 	}
 
 	function edit_snapshot($snapshot_id,$body,$title,$readme,$tags,$public,$custom_data){
-		$edit_snapshot=($curl -> curl_terminal('/edit_snapshot',array(
-					'user_token' => $user_token,
-					'access_token' => $access_token,
+		$edit_snapshot=($GLOBALS['curl'] -> curl_terminal('/edit_snapshot',array(
+					'user_token' => $this -> user_token,
+					'access_token' => $this -> access_token,
 					'snapshot_id' => $snapshot_id,
 					'body' => $body,
 					'title' => $title,
@@ -233,9 +227,9 @@ class endpoint {
 
 	}
 	function snapshot_terminal($container_key,$body,$title,$readme,$tags,$public){
-		$snapshot_terminal=($curl -> curl_terminal('/snapshot_terminal',array(
-					'user_token' => $user_token,
-					'access_token' => $access_token,
+		$snapshot_terminal=($GLOBALS['curl'] -> curl_terminal('/snapshot_terminal',array(
+					'user_token' => $this -> user_token,
+					'access_token' => $this -> access_token,
 					'snapshot_id' => $snapshot_id,
 					'body' => $body,
 					'title' => $title,
@@ -254,9 +248,9 @@ class endpoint {
 	//Manage who can see which ports of your Terminal instance.
 
 	function add_terminal_links($container_key,$port,$source){
-		$add_terminal_links=($curl -> curl_terminal('/add_terminal_links',array(
-			'user_token' => $user_token,
-			'access_token' => $access_token,
+		$add_terminal_links=($GLOBALS['curl'] -> curl_terminal('/add_terminal_links',array(
+			'user_token' => $this -> user_token,
+			'access_token' => $this -> access_token,
 			'container_key' => $container_key,
 			'links' => array('port' => $port,
 				'source' => $source)
@@ -272,9 +266,9 @@ class endpoint {
 	}
 
 	function remove_terminal_links($container_key,$port,$source){
-		$remove_terminal_links=($curl -> curl_terminal('/remove_terminal_links',array(
-			'user_token' => $user_token,
-			'access_token' => $access_token,
+		$remove_terminal_links=($GLOBALS['curl'] -> curl_terminal('/remove_terminal_links',array(
+			'user_token' => $this -> user_token,
+			'access_token' => $this -> access_token,
 			'container_key' => $container_key,
 			'links' => array('port' => $port,
 				'source' => $source)
@@ -289,9 +283,9 @@ class endpoint {
 
 	}
 	function list_terminal_access($container_key){
-		$list_terminal_access=($curl -> curl_terminal('/list_terminal_access',array(
-			'user_token' => $user_token,
-			'access_token' => $access_token,
+		$list_terminal_access=($GLOBALS['curl'] -> curl_terminal('/list_terminal_access',array(
+			'user_token' => $this -> user_token,
+			'access_token' => $this -> access_token,
 			'container_key' => $container_key
 
 			)
@@ -302,9 +296,9 @@ class endpoint {
 	}
 
 	function edit_terminal_access($container_key,$is_public_list,$access_rules){
-		$edit_terminal_access =($curl -> curl_terminal('/edit_terminal_access',array(
-			'user_token' => $user_token,
-			'access_token' => $access_token,
+		$edit_terminal_access =($GLOBALS['curl'] -> curl_terminal('/edit_terminal_access',array(
+			'user_token' => $this -> user_token,
+			'access_token' => $this -> access_token,
 			'container_key' => $container_key,
 			'is_public_list' => $is_public_list,
 			'access_rules' => $access_rules
@@ -320,9 +314,9 @@ class endpoint {
 	//MANAGE TERMINAL DNS & DOMAINS
 	//Allow other websites to point to Terminals
 	function get_cname_records(){
-		$get_cname_records=($curl -> curl_terminal('/get_cname_records',array(
-			'user_token' => $user_token,
-			'access_token' => $access_token)
+		$get_cname_records=($GLOBALS['curl'] -> curl_terminal('/get_cname_records',array(
+			'user_token' => $this -> user_token,
+			'access_token' => $this -> access_token)
 			));
 
 
@@ -331,9 +325,9 @@ class endpoint {
 	}
 
 	function add_domain_to_pool($domain){
-		$add_domain_to_pool=($curl -> curl_terminal('/add_domain_to_pool',array(
-			'user_token' => $user_token,
-			'access_token' => $access_token,
+		$add_domain_to_pool=($GLOBALS['curl'] -> curl_terminal('/add_domain_to_pool',array(
+			'user_token' => $this -> user_token,
+			'access_token' => $this -> access_token,
 			'domain' =>$domain
 			)
 
@@ -341,9 +335,9 @@ class endpoint {
 			));
 	}
 	function remove_domain_from_pool($remove_domain_from_pool){
-			$remove_domain_from_pool = ($curl -> curl_terminal('/remove_domain_from_pool',array(
-				'user_token' => $user_token,
-				'access_token' => $access_token,
+			$remove_domain_from_pool = ($GLOBALS['curl'] -> curl_terminal('/remove_domain_from_pool',array(
+				'user_token' => $this -> user_token,
+				'access_token' => $this -> access_token,
 				'domain' =>$domain
 				)
 
@@ -355,9 +349,9 @@ class endpoint {
 
 		////cname 
 	function add_cname_record($domain,$subdomain,$port){
-		$add_cname_record = ($curl -> curl_terminal('/add_cname_record', array(
-			'user_token' => $user_token,
-			'access_token' => $access_token,
+		$add_cname_record = ($GLOBALS['curl'] -> curl_terminal('/add_cname_record', array(
+			'user_token' => $this -> user_token,
+			'access_token' => $this -> access_token,
 			'domain' => $domain,
 			'subdomain' => $subdomain,
 			'port' => $port
@@ -371,9 +365,9 @@ class endpoint {
 
 	}
 	function remove_cname_record($domain){
-		$remove_cname_record = ($curl -> curl_terminal('/remove_cname_record',array(
-			'user_token' => $user_token,
-			'access_token' => $access_token,
+		$remove_cname_record = ($GLOBALS['curl'] -> curl_terminal('/remove_cname_record',array(
+			'user_token' => $this -> user_token,
+			'access_token' => $this -> access_token,
 			'domain' => $domain
 			)
 			));
@@ -389,9 +383,9 @@ class endpoint {
 
 	function set_terminal_idle_settings($container_key,$triggers,$action){
 
-		$set_terminal_idle_settings = ($curl -> curl_terminal('/set_terminal_idle_settings',array(
-			'user_token' => $user_token,
-			'access_token' => $access_token,
+		$set_terminal_idle_settings = ($GLOBALS['curl'] -> curl_terminal('/set_terminal_idle_settings',array(
+			'user_token' => $this -> user_token,
+			'access_token' => $this -> access_token,
 			'container_key' => $container_key,
 			'triggers' => $triggers,
 			'action' => $action
@@ -401,9 +395,9 @@ class endpoint {
 	}
 
 	function get_terminal_idle_settings($container_key){
-		$get_terminal_idle_settings = ($curl -> curl_terminal('/get_terminal_idle_settings',array(
-			'user_token' => $user_token,
-			'access_token' => $access_token,
+		$get_terminal_idle_settings = ($GLOBALS['curl'] -> curl_terminal('/get_terminal_idle_settings',array(
+			'user_token' => $this -> user_token,
+			'access_token' => $this -> access_token,
 			'$container_key' => $container_key)
 		));
 
@@ -413,11 +407,11 @@ class endpoint {
 
 	}
 
-//MANAGE USAGE & CREDITS
-//View your usage, payment history, current burn, and more.
+	//MANAGE USAGE & CREDITS
+	//View your usage, payment history, current burn, and more.
 
 	function instance_types(){
-		$instance_types = ($curl -> curl_terminal('/instance_types','null'));
+		$instance_types = ($GLOBALS['curl'] -> curl_terminal('/instance_types','null'));
 		return instance_types;
 
 
@@ -425,15 +419,15 @@ class endpoint {
 
 	function instance_price(){
 
-		$instance_price= ($curl -> curl_terminal('/instance_price','null'));
+		$instance_price= ($GLOBALS['curl'] -> curl_terminal('/instance_price','null'));
 		return $instance_price;
 
 	}
 
 	function balance(){
 
-		$balance = ($curl -> curl_terminal('/balance',array('user_token' => $user_token,
-			'access_token' => $access_token
+		$balance = ($GLOBALS['curl'] -> curl_terminal('/balance',array('user_token' => $this -> user_token,
+			'access_token' => $this -> access_token
 			)
 		));
 
@@ -442,8 +436,8 @@ class endpoint {
 	}
 
 	function balance_added(){
-		$balance_added = ($curl -> curl_terminal('/balance_added',array('user_token'=> $user_token,
-			'access_token' => $access_token
+		$balance_added = ($GLOBALS['curl'] -> curl_terminal('/balance_added',array('user_token'=> $this -> user_token,
+			'access_token' => $this -> access_token
 			)
 
 
@@ -453,8 +447,8 @@ class endpoint {
 
 	}
 	function gift($email,$cents){
-		$gift=($curl -> curl_terminal('/gift',array('user_token' => $user_token,
-			'access_token' => $access_token,
+		$gift=($GLOBALS['curl'] -> curl_terminal('/gift',array('user_token' => $this -> user_token,
+			'access_token' => $this -> access_token,
 			'email' => $email,
 			'cents' => $cents
 			)
@@ -466,8 +460,8 @@ class endpoint {
 	}
 
 	function burn_history(){
-		$burn_history = ($curl -> curl_terminal('/burn_history',array('user_token' => $user_token,
-			'access_token',$access_token
+		$burn_history = ($GLOBALS['curl'] -> curl_terminal('/burn_history',array('user_token' => $this -> user_token,
+			'access_token',$this -> access_token
 			)
 
 			));
@@ -476,8 +470,8 @@ class endpoint {
 	}
 
 	function terminal_usage_history(){
-		$terminal_usage_history= ($curl -> curl_terminal('/terminal_usage_history',array('user_token' => $user_token,
-			'access_token',$access_token
+		$terminal_usage_history= ($GLOBALS['curl'] -> curl_terminal('/terminal_usage_history',array('user_token' => $this -> user_token,
+			'access_token',$this -> access_token
 			)
 
 			));
@@ -486,8 +480,8 @@ class endpoint {
 	}
 
 	function burn_state(){
-		$burn_state = ($curl -> curl_terminal('/burn_state',array('user_token' => $user_token,
-			'access_token',$access_token
+		$burn_state = ($GLOBALS['curl'] -> curl_terminal('/burn_state',array('user_token' => $this -> user_token,
+			'access_token',$this -> access_token
 			)
 
 			));
@@ -495,8 +489,8 @@ class endpoint {
 
 	}
 	function burn_estimates(){
-		$burn_estimates = ($curl -> curl_terminal('/burn_estimates',array('user_token' => $user_token,
-			'access_token',$access_token
+		$burn_estimates = ($GLOBALS['curl'] -> curl_terminal('/burn_estimates',array('user_token' => $this -> user_token,
+			'access_token',$this -> access_token
 			)
 
 			));
@@ -508,8 +502,8 @@ class endpoint {
 	//MANAGE SSH PUBLIC KEYS
 	function add_authorized_key_to_terminal($container_key,$public_key){
 
-		$add_authorized_key_to_terminal=($curl -> curl_terminal('/add_authorized_key_to_terminal',array('user_token' => $user_token,
-			'access_token' => $access_token,
+		$add_authorized_key_to_terminal=($GLOBALS['curl'] -> curl_terminal('/add_authorized_key_to_terminal',array('user_token' => $this -> user_token,
+			'access_token' => $this -> access_token,
 			'container_key' => $container_key,
 			'public_key' => $public_key
 			)
@@ -520,8 +514,8 @@ class endpoint {
 	}
 	function add_authorized_key_to_ssh_proxy($name,$public_key){
 
-		$add_authorized_key_to_ssh_proxy= ($curl -> curl_terminal('/add_authorized_key_to_ssh_proxy',array('user_token' => $user_token,
-			'access_token' => $access_token,
+		$add_authorized_key_to_ssh_proxy= ($GLOBALS['curl'] -> curl_terminal('/add_authorized_key_to_ssh_proxy',array('user_token' => $this -> user_token,
+			'access_token' => $this -> access_token,
 			'name' => $name,
 			'public_key' => $public_key
 			)
@@ -531,8 +525,8 @@ class endpoint {
 
 	}
 	function del_authorized_key_from_ssh_proxy($name,$fingerprint){
-		$del_authorized_key_from_ssh_proxy = ($curl -> curl_terminal('/del_authorized_key_from_ssh_proxy',array('user_token' => $user_token,
-			'access_token' => $access_token,
+		$del_authorized_key_from_ssh_proxy = ($GLOBALS['curl'] -> curl_terminal('/del_authorized_key_from_ssh_proxy',array('user_token' => $this -> user_token,
+			'access_token' => $this -> access_token,
 			'name' => $name,
 			'fingerprint' => $fingerprint
 			)
@@ -542,8 +536,8 @@ class endpoint {
 
 	}
 	function get_authorized_keys_from_ssh_proxy(){
-		$get_authorized_keys_from_ssh_proxy =($curl -> curl_terminal('/get_authorized_keys_from_ssh_proxy',array('user_token' => $user_token,
-			'access_token' => $access_token)));
+		$get_authorized_keys_from_ssh_proxy =($GLOBALS['curl'] -> curl_terminal('/get_authorized_keys_from_ssh_proxy',array('user_token' => $this -> user_token,
+			'access_token' => $this -> access_token)));
 
 
 	}
