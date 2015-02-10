@@ -3,8 +3,8 @@ include_once('curl.php');
 
 $curl = new curl;
 class endpoint {
-	public $user_token='a0b8071b72c082f68ef54cf35d0cb1e8d78ac823996a99710ec0dd594ec89502';
-	public $access_token='BhJe51MOAc9M5Alsia6WrIqO6wtnIUzf';
+	public $user_token='';
+	public $access_token='';
 	//public $curl = $GLOBALS['curl'];
 
 
