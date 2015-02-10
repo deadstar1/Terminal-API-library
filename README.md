@@ -1,3 +1,3 @@
 # Terminal-API-library
-unofficial terminal API LIBRARY
+Terminal-Cloud-PHP-API-Library
 some intructions here!!!!
