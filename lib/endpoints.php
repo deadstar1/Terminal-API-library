@@ -66,7 +66,7 @@ class endpoint {
 
 			$terminal=($curl -> curl_terminal('/get_terminal',
 				array('user_token' => $this -> user_token,
-					'access_token'=> $access_token,
+					'access_token'=> $this -> access_token,
 					'container_key' => $container_key,
 					'subdomain' => $subdomain
 					)
@@ -79,7 +79,7 @@ class endpoint {
 	function start_snapshot($snapshot_id,$cpu,$ram,$temporary,$name,$autopause,$start_script){
 		$start_snapshot=($GLOBALS['curl'] -> curl_terminal('/start_snapshot',
 			array('user_token' =>$this -> user_token,
-				'access_token' =>$access_token,
+				'access_token' =>$this -> access_token,
 				'snapshot_id' =>$snapshot_id,
 				'cpu' =>$cpu,
 				'ram' =>$ram,
@@ -98,7 +98,7 @@ class endpoint {
 	function delete_terminal($container_key){
 		$delete_terminal=($GLOBALS['curl'] -> curl_terminal('/delete_terminal',
 			array('user_token' => $this -> user_token,
-				'access_token' => $access_token,
+				'access_token' => $this -> access_token,
 				'container_key'=> $container_key
 				)
 			));
@@ -110,7 +110,7 @@ class endpoint {
 
 		$restart_terminal=($GLOBALS['curl'] -> curl_terminal('/restart_terminal',
 			array('user_token' => $this -> user_token,
-				'access_token' => $access_token,
+				'access_token' => $this -> access_token,
 				'container_key' => $container_key
 				)
 			));
@@ -123,7 +123,7 @@ class endpoint {
 
 		$pause_terminal=($GLOBALS['curl'] -> curl_terminal('/pause_terminal',
 			array('user_token' => $this -> user_token,
-				'access_token' => $access_token,
+				'access_token' => $this -> access_token,
 				'container_key' => $container_key
 				)
 			));
@@ -135,7 +135,7 @@ class endpoint {
 
 		$resume_terminal=($GLOBALS['curl'] -> curl_terminal('/resume_terminal',
 			array('user_token' => $this -> user_token,
-				'access_token' => $access_token,
+				'access_token' => $this -> access_token,
 				'container_key' => $container_key
 				)
 			));
@@ -148,7 +148,7 @@ class endpoint {
 
 		$edit_terminal=($GLOBALS['curl']-> curl_terminal('/edit_terminal',
 			array('user_token' => $this -> user_token,
-				'access_token' => $access_token,
+				'access_token' => $this -> access_token,
 				'cpu' => $cpu,
 				'ram' => $ram,
 				'diskspace' => $diskspace,
@@ -166,7 +166,7 @@ class endpoint {
 	function list_snapshot($username,$tag,$featured,$title,$page,$perpage,$sortby){
 		$list_snapshot=($GLOBALS['curl'] -> curl_terminal('/list_snapshots',
 			array('user_token' => $this -> user_token,
-				'access_token' => $access_token,
+				'access_token' => $this -> access_token,
 				'username' => $username,
 				'tag' => $tag,
 				'featured' => $featured,
