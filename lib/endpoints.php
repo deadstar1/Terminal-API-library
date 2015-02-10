@@ -3,8 +3,8 @@ include_once('curl.php');
 
 $curl = new curl;
 class endpoint {
-	public $user_token='';
-	public $access_token='';
+	public $user_token='a0b8071b72c082f68ef54cf35d0cb1e8d78ac823996a99710ec0dd594ec89502';
+	public $access_token='BhJe51MOAc9M5Alsia6WrIqO6wtnIUzf';
 	//public $curl = $GLOBALS['curl'];
 
 
@@ -321,7 +321,7 @@ class endpoint {
 
 
 
-		return get_cname_records;
+		return $get_cname_records;
 	}
 
 	function add_domain_to_pool($domain){
@@ -338,7 +338,7 @@ class endpoint {
 			$remove_domain_from_pool = ($GLOBALS['curl'] -> curl_terminal('/remove_domain_from_pool',array(
 				'user_token' => $this -> user_token,
 				'access_token' => $this -> access_token,
-				'domain' =>$domain
+				'domain' => $remove_domain_from_pool
 				)
 
 
@@ -398,7 +398,7 @@ class endpoint {
 		$get_terminal_idle_settings = ($GLOBALS['curl'] -> curl_terminal('/get_terminal_idle_settings',array(
 			'user_token' => $this -> user_token,
 			'access_token' => $this -> access_token,
-			'$container_key' => $container_key)
+			'container_key' => $container_key)
 		));
 
 
