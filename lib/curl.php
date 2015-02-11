@@ -8,9 +8,9 @@ class curl{
 		$param=json_encode($param);
 		//echo $param;
 		$endpoint='https://api.terminal.com/v0.1'. $endpoint;
-
+		$content_type='Content-Type: application/json'; // if other content type is supported.
 		curl_setopt($curl, CURLOPT_URL, $endpoint);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array($content_type));
 		curl_setopt($curl, CURLOPT_POST, 1);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $param);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
